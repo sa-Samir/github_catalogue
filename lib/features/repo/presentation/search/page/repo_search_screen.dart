@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/widgets/app_bars/custom_app_bar.dart';
-import '../../../../core/utils/widgets/gesture/custom_gesture_detector.dart';
+import '../../../../../core/utils/widgets/app_bars/custom_app_bar.dart';
+import '../../../../../core/utils/widgets/gesture/custom_gesture_detector.dart';
 import 'repo_search_body.dart';
 
 class RepoSearchScreen extends StatelessWidget {

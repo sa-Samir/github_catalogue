@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/assets/image_assets.dart';
-import '../../../../../core/constants/app_constants.dart';
-import '../../../../../core/constants/text_styles.dart';
-import '../../../../../core/utils/widgets/images/custom_asset_image.dart';
+import '../../../../../../core/assets/image_assets.dart';
+import '../../../../../../core/constants/app_constants.dart';
+import '../../../../../../core/constants/text_styles.dart';
+import '../../../../../../core/utils/widgets/images/custom_asset_image.dart';
 
 class RepoSearchInitialComponent extends StatelessWidget {
   const RepoSearchInitialComponent({super.key});

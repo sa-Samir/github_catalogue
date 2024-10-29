@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_constants.dart';
+import '../../../../../core/constants/app_constants.dart';
 import 'components/repo_search_input_section.dart';
 import 'components/repo_search_result_section.dart';
 

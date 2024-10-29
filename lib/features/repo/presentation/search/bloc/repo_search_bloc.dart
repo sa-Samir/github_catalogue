@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/enums.dart';
-import '../../../../core/infrastructure/data/data_state.dart';
-import '../../data/model/repo/details/repo_details_model.dart';
-import '../../data/model/repo/listing/repo_listing_model.dart';
-import '../../data/repository/repo_repository.dart';
+import '../../../../../core/constants/app_constants.dart';
+import '../../../../../core/constants/enums.dart';
+import '../../../../../core/infrastructure/data/data_state.dart';
+import '../../../data/model/repo/details/repo_details_model.dart';
+import '../../../data/model/repo/listing/repo_listing_model.dart';
+import '../../../data/repository/repo_repository.dart';
 
 part 'repo_search_event.dart';
 part 'repo_search_state.dart';

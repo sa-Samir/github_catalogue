@@ -21,4 +21,15 @@ class RepoRepository {
     final response = await _dioClient.get(searchUrl);
     return response;
   }
+
+  Future<DataState> fetchRepoReadme({
+    required String? ownerLogin,
+    required String? repositoryName,
+  }) async {
+    // From Github Api Docs
+    // https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
+    final url = '${RepoUrls.repository}$ownerLogin/$repositoryName/readme';
+    final response = await _dioClient.getRawReadme(url);
+    return response;
+  }
 }

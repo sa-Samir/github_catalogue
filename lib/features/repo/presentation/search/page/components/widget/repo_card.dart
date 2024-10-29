@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/constants/app_colors.dart';
-import '../../../../../../core/constants/app_constants.dart';
-import '../../../../../../core/constants/text_styles.dart';
-import '../../../../../../core/helpers/date_format_helper.dart';
-import '../../../../../../core/helpers/extensions.dart';
-import '../../../../../../core/helpers/num_helper.dart';
-import '../../../../../../core/utils/widgets/images/custom_small_avatar.dart';
-import '../../../../data/model/repo/details/repo_details_model.dart';
+import '../../../../../../../config/routes/app_routes.dart';
+import '../../../../../../../core/constants/app_colors.dart';
+import '../../../../../../../core/constants/app_constants.dart';
+import '../../../../../../../core/constants/text_styles.dart';
+import '../../../../../../../core/helpers/date_format_helper.dart';
+import '../../../../../../../core/helpers/extensions.dart';
+import '../../../../../../../core/helpers/num_helper.dart';
+import '../../../../../../../core/utils/widgets/gesture/custom_ink_well.dart';
+import '../../../../../../../core/utils/widgets/images/custom_small_avatar.dart';
+import '../../../../../data/model/repo/details/repo_details_model.dart';
 
 class RepoCard extends StatelessWidget {
   final RepoDetailsModel? repo;
@@ -18,50 +20,57 @@ class RepoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.screenPadding,
-        vertical: AppConstants.screenPadding * .5,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.bgGrey,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(AppConstants.smallBorderRadius),
+    return CustomInkWell(
+      onTap: () => _navigateToDetails(context),
+      child: Ink(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.screenPadding,
+          vertical: AppConstants.screenPadding * .5,
         ),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _TitleSection(
-                  repo: repo,
-                ),
-                AppConstants.verySmallHeight,
-                _OwnerSection(
-                  owner: repo?.owner,
-                ),
-                if (repo?.description?.isNotEmpty ?? false) ...[
+        decoration: BoxDecoration(
+          color: AppColors.bgGrey,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(AppConstants.smallBorderRadius),
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _TitleSection(
+                    repo: repo,
+                  ),
                   AppConstants.verySmallHeight,
-                  Text(
-                    repo?.description ?? '',
-                    style: TextStyles.regular12
-                        .copyWith(color: AppColors.secondaryText),
-                    maxLines: 2,
-                    overflow: AppConstants.textOverflow,
+                  _OwnerSection(
+                    owner: repo?.owner,
+                  ),
+                  if (repo?.description?.isNotEmpty ?? false) ...[
+                    AppConstants.verySmallHeight,
+                    Text(
+                      repo?.description ?? '',
+                      style: TextStyles.regular12
+                          .copyWith(color: AppColors.secondaryText),
+                      maxLines: 2,
+                      overflow: AppConstants.textOverflow,
+                    ),
+                  ],
+                  AppConstants.verySmallHeight,
+                  _StarDateSection(
+                    repo: repo,
                   ),
                 ],
-                AppConstants.verySmallHeight,
-                _StarDateSection(
-                  repo: repo,
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  void _navigateToDetails(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.repository, arguments: repo);
   }
 }
 

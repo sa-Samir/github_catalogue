@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_constants.dart';
+import '../buttons/custom_icon_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,7 +16,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
       ),
+      centerTitle: true,
       systemOverlayStyle: AppConstants.systemOverlay,
+      leading: Navigator.canPop(context)
+          ? CustomIconButton(
+              icon: Icons.arrow_back_ios_new,
+              onTap: () => Navigator.pop(context),
+            )
+          : null,
     );
   }
 

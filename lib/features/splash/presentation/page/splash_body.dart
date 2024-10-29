@@ -31,7 +31,7 @@ class _SplashBodyState extends State<SplashBody> {
             height: AppConstants.largeLogoSize,
             width: AppConstants.largeLogoSize,
           ),
-          AppConstants.sizedBoxLarge,
+          AppConstants.largeHeight,
           Text(
             'Github Catalogue',
             style: TextStyles.regular17,

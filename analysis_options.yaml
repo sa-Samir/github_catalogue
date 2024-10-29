@@ -24,6 +24,13 @@ linter:
     require_trailing_commas: true
     prefer_relative_imports: true
     unnecessary_breaks : true
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+  exclude:
+    - lib/**.g.dart
+    - lib/**.freezed.dart
+    - lib/**.gr.dart
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 

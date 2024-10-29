@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/app_constants.dart';
+
 class CustomPaginator extends StatelessWidget {
   final int currentPage;
   final int itemsPerPage;
@@ -24,11 +26,9 @@ class CustomPaginator extends StatelessWidget {
         Expanded(
           child: Align(
             child: currentPage > 1
-                ? IconButton(
-                    onPressed: onPrevious,
-                    icon: const Icon(
-                      Icons.arrow_back_ios_sharp,
-                    ),
+                ? _IconButton(
+                    onTap: onPrevious,
+                    icon: Icons.arrow_back_ios_sharp,
                   )
                 : const SizedBox(),
           ),
@@ -36,13 +36,30 @@ class CustomPaginator extends StatelessWidget {
         Text('Page $currentPage of $_totalPages'),
         Expanded(
           child: Align(
-            child: IconButton(
-              onPressed: onNext,
-              icon: const Icon(Icons.arrow_forward_ios_sharp),
+            child: _IconButton(
+              onTap: onNext,
+              icon: Icons.arrow_forward_ios_sharp,
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class _IconButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final IconData icon;
+  const _IconButton({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onTap,
+      iconSize: AppConstants.iconSize,
+      icon: Icon(
+        icon,
+      ),
     );
   }
 }

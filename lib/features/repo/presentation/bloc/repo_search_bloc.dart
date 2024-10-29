@@ -22,11 +22,19 @@ class RepoSearchBloc extends Bloc<RepoSearchEvent, RepoSearchState> {
     RepoSearchRequested event,
     Emitter<RepoSearchState> emit,
   ) async {
-    emit(state.copyWith(status: Status.loading, errorMessage: ''));
+    emit(
+      state.copyWith(
+        status: Status.loading,
+        errorMessage: '',
+        page: event.isReload ? 0 : null,
+      ),
+    );
     final response = await _repoRepository.search(
       keyword: event.keyword,
       page: event.showPrevious ? (state.page - 1) : (state.page + 1),
       perPage: state.perPage,
+      sortBy: state.sortBy,
+      orderBy: state.orderBy,
     );
     if (response is DataSuccess) {
       final repos = repoListingModelFromJson(response.data);

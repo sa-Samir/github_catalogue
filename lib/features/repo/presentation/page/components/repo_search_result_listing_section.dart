@@ -11,6 +11,7 @@ import '../../../../../core/utils/widgets/list_view/custom_list_view.dart';
 import '../../../../../core/utils/widgets/pagination/custom_paginator.dart';
 import '../../../data/model/repo/details/repo_details_model.dart';
 import '../../bloc/repo_search_bloc.dart';
+import 'repo_search_sort_bottom_sheet.dart';
 import 'widget/repo_card.dart';
 
 class RepoSearchResultListingSection extends StatelessWidget {
@@ -31,6 +32,8 @@ class RepoSearchResultListingSection extends StatelessWidget {
           totalResults: state.totalResults,
           perPage: state.perPage,
           search: search,
+          sortBy: state.sortBy,
+          orderBy: state.orderBy,
         ),
         AppConstants.mediumHeight,
         _ListingSection(
@@ -66,11 +69,15 @@ class RepoSearchResultListingSection extends StatelessWidget {
 class _TitleSection extends StatelessWidget {
   final int? totalResults;
   final int perPage;
+  final String sortBy;
+  final String orderBy;
   final TextEditingController search;
   const _TitleSection({
     required this.totalResults,
     required this.perPage,
     required this.search,
+    required this.sortBy,
+    required this.orderBy,
   });
 
   @override
@@ -89,7 +96,11 @@ class _TitleSection extends StatelessWidget {
           search: search,
         ),
         AppConstants.smallWidth,
-        const _FilterButton(),
+        _FilterButton(
+          sortBy: sortBy,
+          orderBy: orderBy,
+          search: search,
+        ),
       ],
     );
   }
@@ -135,15 +146,51 @@ class _PerPageComponent extends StatelessWidget {
 }
 
 class _FilterButton extends StatelessWidget {
-  const _FilterButton({super.key});
+  final String sortBy;
+  final String orderBy;
+  final TextEditingController search;
+
+  const _FilterButton({
+    required this.sortBy,
+    required this.orderBy,
+    required this.search,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CustomIconButton(
-      onTap: () {},
-      icon: Icons.filter_alt_outlined,
+      onTap: () => _showFilterSheet(context),
+      icon: Icons.sort_outlined,
       iconSize: AppConstants.iconSize,
     );
+  }
+
+  void _showFilterSheet(BuildContext context) async {
+    final filters = await showRepoSearchSortBottomSheet(
+      context,
+      sortBy: sortBy,
+      orderBy: orderBy,
+    );
+    bool doFetchData = false;
+    if (context.mounted) {
+      final bloc = context.read<RepoSearchBloc>();
+      if (sortBy != filters[0]) {
+        doFetchData = true;
+        bloc.add(RepoSearchSortByChanged(sortBy: filters[0]));
+      }
+      if (orderBy != filters[1]) {
+        doFetchData = true;
+        bloc.add(RepoSearchOrderByChanged(orderBy: filters[1]));
+      }
+      if (doFetchData) {
+        bloc.add(
+          RepoSearchRequested(
+            isReload: true,
+            keyword: search.text,
+          ),
+        );
+      }
+    }
   }
 }
 

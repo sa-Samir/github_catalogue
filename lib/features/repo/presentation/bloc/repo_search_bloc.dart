@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show immutable;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_constants.dart';
@@ -16,6 +16,8 @@ class RepoSearchBloc extends Bloc<RepoSearchEvent, RepoSearchState> {
   RepoSearchBloc(this._repoRepository) : super(RepoSearchState.initial()) {
     on<RepoSearchRequested>(_onRepoSearchRequested);
     on<RepoSearchPerPageChanged>(_onRepoSearchPerPageChanged);
+    on<RepoSearchSortByChanged>(_onRepoSearchSortByChanged);
+    on<RepoSearchOrderByChanged>(_onRepoSearchOrderByChanged);
   }
 
   void _onRepoSearchRequested(
@@ -37,7 +39,8 @@ class RepoSearchBloc extends Bloc<RepoSearchEvent, RepoSearchState> {
       orderBy: state.orderBy,
     );
     if (response is DataSuccess) {
-      final repos = repoListingModelFromJson(response.data);
+      final repos =
+          await compute(repoListingModelFromJson, response.data as String?);
       emit(
         state.copyWith(
           status: Status.success,
@@ -61,5 +64,19 @@ class RepoSearchBloc extends Bloc<RepoSearchEvent, RepoSearchState> {
     Emitter<RepoSearchState> emit,
   ) {
     emit(state.copyWith(perPage: event.perPage));
+  }
+
+  void _onRepoSearchSortByChanged(
+    RepoSearchSortByChanged event,
+    Emitter<RepoSearchState> emit,
+  ) {
+    emit(state.copyWith(sortBy: event.sortBy));
+  }
+
+  void _onRepoSearchOrderByChanged(
+    RepoSearchOrderByChanged event,
+    Emitter<RepoSearchState> emit,
+  ) {
+    emit(state.copyWith(orderBy: event.orderBy));
   }
 }

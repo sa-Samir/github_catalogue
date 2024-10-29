@@ -20,3 +20,17 @@ final class RepoSearchPerPageChanged extends RepoSearchEvent {
     required this.perPage,
   });
 }
+
+final class RepoSearchSortByChanged extends RepoSearchEvent {
+  final String sortBy;
+  RepoSearchSortByChanged({
+    required this.sortBy,
+  });
+}
+
+final class RepoSearchOrderByChanged extends RepoSearchEvent {
+  final String orderBy;
+  RepoSearchOrderByChanged({
+    required this.orderBy,
+  });
+}

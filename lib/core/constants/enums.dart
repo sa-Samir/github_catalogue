@@ -12,18 +12,22 @@ enum Status {
 }
 
 enum SortBy {
-  bestMatch('best_match'),
-  authorDate('author-date'),
-  comitterDate('committer-date ');
+  bestMatch('Best Match', 'best match'),
+  stars('Stars', 'stars'),
+  forks('Forks', 'forks'),
+  helpWantedIssues('Help Wanted Issues', 'help-wanted-issues'),
+  updated('Updated', 'updated');
 
-  const SortBy(this.value);
+  const SortBy(this.name, this.value);
   final String value;
+  final String name;
 }
 
 enum OrderBy {
-  asc('asc'),
-  desc('desc');
+  desc('Descending', 'desc'),
+  asc('Ascending', 'asc');
 
-  const OrderBy(this.value);
+  const OrderBy(this.name, this.value);
   final String value;
+  final String name;
 }

@@ -18,7 +18,7 @@ class RepoSearchResultSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RepoSearchBloc, RepoSearchState>(
       builder: (context, state) {
-        if (state.status == Status.initial) {
+        if (state.status == Status.initial || search.text.isEmpty) {
           return const RepoSearchInitialComponent();
         }
         if (state.status == Status.loading) {

@@ -9,6 +9,8 @@ class AppConstants {
   // ** Dimensions
   static const screenPadding = 20.0;
 
+  static const borderRadius = 10.0;
+
   static const largeLogoSize = 90.0;
   static const mediumLogoSize = 45.0;
 

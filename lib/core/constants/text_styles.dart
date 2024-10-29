@@ -5,4 +5,9 @@ class TextStyles {
     fontSize: 17,
     fontWeight: FontWeight.w400,
   );
+
+  static const regular12 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
 }

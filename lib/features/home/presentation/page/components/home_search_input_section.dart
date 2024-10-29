@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../../../../../core/assets/image_assets.dart';
-import '../../../../../core/constants/app_constants.dart';
-import '../../../../../core/utils/widgets/images/custom_asset_image.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/widgets/inputs/custom_input.dart';
 
 class HomeSearchInputSection extends StatelessWidget {
   const HomeSearchInputSection({super.key});
@@ -10,25 +9,40 @@ class HomeSearchInputSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _LogoComponent(),
-        AppConstants.sizedBoxMedium,
+        _RepoSearchComponent(),
       ],
     );
   }
 }
 
-class _LogoComponent extends StatelessWidget {
-  const _LogoComponent();
+class _RepoSearchComponent extends StatefulWidget {
+  const _RepoSearchComponent();
+
+  @override
+  State<_RepoSearchComponent> createState() => _RepoSearchComponentState();
+}
+
+class _RepoSearchComponentState extends State<_RepoSearchComponent> {
+  final _search = TextEditingController();
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
-      child: CustomAssetImage(
-        imageLocation: ImageAssets.github,
-        height: AppConstants.mediumLogoSize,
-        width: AppConstants.mediumLogoSize,
+    return CustomInput(
+      controller: _search,
+      hint: 'Search Github Repositories...',
+      prefix: Icon(
+        CupertinoIcons.search,
+        color: AppColors.inputGrey,
       ),
+      textInputAction: TextInputAction.search,
     );
   }
 }

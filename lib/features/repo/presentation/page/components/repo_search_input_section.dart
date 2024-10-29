@@ -3,28 +3,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/widgets/inputs/custom_input.dart';
 
-class HomeSearchInputSection extends StatelessWidget {
-  const HomeSearchInputSection({super.key});
+class RepoSearchInputSection extends StatefulWidget {
+  const RepoSearchInputSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _RepoSearchComponent(),
-      ],
-    );
-  }
+  State<RepoSearchInputSection> createState() => _RepoSearchInputSectionState();
 }
 
-class _RepoSearchComponent extends StatefulWidget {
-  const _RepoSearchComponent();
-
-  @override
-  State<_RepoSearchComponent> createState() => _RepoSearchComponentState();
-}
-
-class _RepoSearchComponentState extends State<_RepoSearchComponent> {
+class _RepoSearchInputSectionState extends State<RepoSearchInputSection> {
   final _search = TextEditingController();
 
   @override

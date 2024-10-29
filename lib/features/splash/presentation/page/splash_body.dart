@@ -44,7 +44,7 @@ class _SplashBodyState extends State<SplashBody> {
   void _navigateToHome() {
     Future.delayed(AppConstants.splashDelay, () {
       if (mounted) {
-        Navigator.popAndPushNamed(context, AppRoutes.home);
+        Navigator.popAndPushNamed(context, AppRoutes.search);
       }
     });
   }

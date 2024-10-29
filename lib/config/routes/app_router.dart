@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/home/presentation/page/home_screen.dart';
+import '../../features/repo/presentation/page/repo_search_screen.dart';
 import '../../features/splash/presentation/page/splash_screen.dart';
 import 'app_routes.dart';
 
@@ -12,9 +12,9 @@ class AppRouter {
           builder: (_) => const SplashScreen(),
         );
 
-      case AppRoutes.home:
+      case AppRoutes.search:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const RepoSearchScreen(),
         );
     }
     return null;

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/constants/app_constants.dart';
 import '../../../../../../core/constants/enums.dart';
 import '../../../../../../core/constants/text_styles.dart';
-import '../../../../../../core/utils/widgets/empty/custom_empty_widget.dart';
 import '../../../../../../core/utils/widgets/markdown/custom_markdown_renderer.dart';
 import '../../../../data/model/repo/details/repo_details_model.dart';
 import '../../cubit/repo_detail_cubit.dart';

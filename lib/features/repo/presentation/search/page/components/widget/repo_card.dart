@@ -7,6 +7,7 @@ import '../../../../../../../core/constants/app_constants.dart';
 import '../../../../../../../core/constants/text_styles.dart';
 import '../../../../../../../core/helpers/date_format_helper.dart';
 import '../../../../../../../core/helpers/extensions.dart';
+import '../../../../../../../core/helpers/gesture_helper.dart';
 import '../../../../../../../core/helpers/num_helper.dart';
 import '../../../../../../../core/utils/widgets/gesture/custom_ink_well.dart';
 import '../../../../../../../core/utils/widgets/images/custom_small_avatar.dart';
@@ -72,6 +73,7 @@ class RepoCard extends StatelessWidget {
   }
 
   void _navigateToDetails(BuildContext context) {
+    GestureHelper.unfocus();
     Navigator.pushNamed(context, AppRoutes.repository, arguments: repo);
   }
 }

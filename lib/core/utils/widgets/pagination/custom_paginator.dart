@@ -36,10 +36,12 @@ class CustomPaginator extends StatelessWidget {
         Text('Page $currentPage of $_totalPages'),
         Expanded(
           child: Align(
-            child: _IconButton(
-              onTap: onNext,
-              icon: Icons.arrow_forward_ios_sharp,
-            ),
+            child: currentPage < _totalPages
+                ? _IconButton(
+                    onTap: onNext,
+                    icon: Icons.arrow_forward_ios_sharp,
+                  )
+                : null,
           ),
         ),
       ],

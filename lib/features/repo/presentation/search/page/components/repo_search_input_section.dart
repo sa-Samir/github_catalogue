@@ -37,7 +37,7 @@ class _RepoSearchInputSectionState extends State<RepoSearchInputSection> {
     _debouncer.run(
       () {
         context.read<RepoSearchBloc>().add(
-              RepoSearchRequested(keyword: _search.text),
+              RepoSearchRequested(keyword: _search.text, isReload: true),
             );
       },
     );

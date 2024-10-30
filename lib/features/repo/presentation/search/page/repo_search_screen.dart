@@ -11,7 +11,10 @@ class RepoSearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CustomGestureDetector(
       child: Scaffold(
-        appBar: CustomAppBar(title: 'Home'),
+        appBar: CustomAppBar(
+          title: 'Home',
+          showBackButton: false,
+        ),
         body: SafeArea(
           child: RepoSearchBody(),
         ),

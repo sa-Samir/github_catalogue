@@ -6,9 +6,11 @@ import '../buttons/custom_icon_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool showBackButton;
   const CustomAppBar({
     super.key,
     required this.title,
+    this.showBackButton = true,
   });
 
   @override
@@ -19,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       systemOverlayStyle: AppConstants.systemOverlay,
-      leading: Navigator.of(context).canPop()
+      leading: showBackButton
           ? CustomIconButton(
               backgroundColor: AppColors.transparent,
               icon: Icons.arrow_back_ios_new,

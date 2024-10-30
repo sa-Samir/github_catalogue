@@ -23,11 +23,7 @@ class RepoDetailReadmeSection extends StatelessWidget {
         if (state.status == Status.loading) {
           return const RepoDetailReadmeSkeleton();
         }
-        if (state.readmeData.isNotEmpty) {
-          // return CustomEmptyWidget(
-          //   msg: state.errorMessage,
-          //   onRetry: () => _fetchData(context),
-          // );
+        if (state.readmeData.isEmpty) {
           return const SizedBox();
         }
 
@@ -37,13 +33,6 @@ class RepoDetailReadmeSection extends StatelessWidget {
       },
     );
   }
-
-  // void _fetchData(BuildContext context) {
-  //   context.read<RepoDetailCubit>().fetchReadme(
-  //         ownerLogin: repo?.owner?.login,
-  //         repositoryName: repo?.name,
-  //       );
-  // }
 }
 
 class _ReadmeComponent extends StatelessWidget {

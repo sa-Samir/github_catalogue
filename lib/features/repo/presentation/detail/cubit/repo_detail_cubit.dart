@@ -19,10 +19,11 @@ class RepoDetailCubit extends Cubit<RepoDetailState> {
       repositoryName: repositoryName,
     );
     if (response is DataSuccess) {
+      final readmeData = response.data;
       emit(
         state.copyWith(
           status: Status.success,
-          readmeData: response.data as String?,
+          readmeData: readmeData,
         ),
       );
     } else {

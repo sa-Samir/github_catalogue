@@ -8,6 +8,12 @@ class TextStyles {
   );
 
   // ** Medium
+
+  static const medium17 = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+  );
+
   static const medium14 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -27,6 +33,12 @@ class TextStyles {
   static const regular12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
+  );
+
+  static const regularItalic12 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.italic,
   );
 
   // ** Light

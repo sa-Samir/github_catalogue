@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../../../core/constants/enums.dart';
 import '../../../../core/infrastructure/data/data_state.dart';
 import '../../../../core/infrastructure/network/dio_client.dart';
@@ -29,7 +31,16 @@ class RepoRepository {
     // From Github Api Docs
     // https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
     final url = '${RepoUrls.repository}$ownerLogin/$repositoryName/readme';
-    final response = await _dioClient.getRawReadme(url);
+    final response = await _dioClient.get(
+      url,
+      responseType: ResponseType.plain,
+      headers: {
+        // From Github Api Docs to get the readme in raw html
+        // https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
+        'Accept': 'application/vnd.github.raw+json',
+      },
+      doEncodeSuccessReponse: false,
+    );
     return response;
   }
 }

@@ -21,52 +21,27 @@ class DioClient {
 
   Future<DataState> get(
     String url, {
+    ResponseType? responseType,
     JsonMap? headers,
+    bool doEncodeSuccessReponse = true,
   }) async {
     if (_hasConnection) {
       try {
         var response = await _dio.get(
           url,
-          options: Options(headers: headers),
+          options: Options(
+            headers: headers,
+            responseType: responseType,
+          ),
         );
         var encodedResponse = json.encode(response.data);
         if ((response.statusCode ?? 400) >= 200 &&
             (response.statusCode ?? 400) <= 299) {
-          return DataSuccess(encodedResponse);
-        } else {
-          final error = errorModelFromJson(encodedResponse);
-          return DataFailure(error);
-        }
-      } on DioException catch (e) {
-        return ExceptionHelper.handleDioException(e);
-      } catch (e) {
-        return ExceptionHelper.handleException(e);
-      }
-    } else {
-      return DataFailure(ErrorModel.fromString(_noInternetText));
-    }
-  }
-
-  Future<DataState> getRawReadme(
-    String url,
-  ) async {
-    if (_hasConnection) {
-      try {
-        var response = await _dio.get(
-          url,
-          options: Options(
-            headers: {
-              // From Github Api Docs to get the readme in raw html
-              // https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
-              'Accept': 'application/vnd.github.html+json',
-            },
-          ),
-        );
-        if ((response.statusCode ?? 400) >= 200 &&
-            (response.statusCode ?? 400) <= 399) {
+          if (doEncodeSuccessReponse) {
+            return DataSuccess(encodedResponse);
+          }
           return DataSuccess(response.data);
         } else {
-          var encodedResponse = json.encode(response.data);
           final error = errorModelFromJson(encodedResponse);
           return DataFailure(error);
         }

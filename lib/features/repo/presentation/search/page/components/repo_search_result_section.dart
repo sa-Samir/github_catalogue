@@ -43,8 +43,6 @@ class RepoSearchResultSection extends StatelessWidget {
       state.results.isEmpty;
 
   void _fetchRepos(BuildContext context) {
-    context
-        .read<RepoSearchBloc>()
-        .add(RepoSearchRequested());
+    context.read<RepoSearchBloc>().add(RepoSearchRequested());
   }
 }

@@ -19,7 +19,7 @@ class RepoSearchInitialComponent extends StatelessWidget {
         ),
         AppConstants.mediumHeight,
         Text(
-          'Welcome to the Github Catalogue.\nSearch the hub for the repository you\'re looking for',
+          'Welcome to the Github Catalogue.\nSearch the hub for the public repository you\'re looking for',
           style: TextStyles.regular12,
           textAlign: TextAlign.center,
         ),

@@ -20,6 +20,12 @@ Future<List<String>> showRepoSearchSortBottomSheet(
   await showModalBottomSheet(
     context: context,
     constraints: BoxConstraints.loose(Size.fromHeight(maxHeight)),
+    isScrollControlled: true,
+    showDragHandle: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius:
+          BorderRadius.all(Radius.circular(AppConstants.borderRadius)),
+    ),
     builder: (context) => StatefulBuilder(
       builder: (BuildContext context, setState) {
         return SingleChildScrollView(

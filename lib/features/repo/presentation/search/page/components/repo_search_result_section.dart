@@ -6,6 +6,7 @@ import '../../../../../../core/utils/widgets/empty/custom_empty_widget.dart';
 import '../../bloc/repo_search_bloc.dart';
 import 'repo_search_initial_component.dart';
 import 'repo_search_result_listing_section.dart';
+import 'repo_search_result_listing_skeleton.dart';
 
 class RepoSearchResultSection extends StatelessWidget {
   final TextEditingController search;
@@ -22,7 +23,9 @@ class RepoSearchResultSection extends StatelessWidget {
           return const RepoSearchInitialComponent();
         }
         if (state.status == Status.loading) {
-          return const CircularProgressIndicator.adaptive();
+          return RepoSearchResultListingSkeleton(
+            state: state,
+          );
         }
         if (_showErrorMessage(state)) {
           return CustomEmptyWidget(

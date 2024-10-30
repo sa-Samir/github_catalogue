@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../../../config/routes/app_routes.dart';
 import '../../../../../../../core/constants/app_colors.dart';
@@ -22,6 +23,7 @@ class RepoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomInkWell(
       onTap: () => _navigateToDetails(context),
+      borderRadius: AppConstants.smallBorderRadius,
       child: Ink(
         padding: const EdgeInsets.symmetric(
           horizontal: AppConstants.screenPadding,
@@ -163,18 +165,20 @@ class _IconValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: AppConstants.smallIconSize,
-        ),
-        2.width,
-        Text(
-          NumHelper.getShortForm(value),
-          style: TextStyles.light12,
-        ),
-      ],
+    return Skeleton.unite(
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: AppConstants.smallIconSize,
+          ),
+          2.width,
+          Text(
+            NumHelper.getShortForm(value),
+            style: TextStyles.light12,
+          ),
+        ],
+      ),
     );
   }
 }

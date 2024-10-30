@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../../core/constants/app_constants.dart';
 import '../../../../../../core/constants/text_styles.dart';
@@ -41,12 +42,14 @@ class RepoSearchResultListingSection extends StatelessWidget {
         ),
         if (state.results.isNotEmpty) ...[
           AppConstants.largeHeight,
-          CustomPaginator(
-            currentPage: state.page,
-            itemsPerPage: state.perPage,
-            totalItems: state.totalResults,
-            onNext: () => _fetchNextPage(context),
-            onPrevious: () => _fetchPreviousPage(context),
+          Skeleton.keep(
+            child: CustomPaginator(
+              currentPage: state.page,
+              itemsPerPage: state.perPage,
+              totalItems: state.totalResults,
+              onNext: () => _fetchNextPage(context),
+              onPrevious: () => _fetchPreviousPage(context),
+            ),
           ),
         ],
       ],
@@ -158,10 +161,13 @@ class _FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomIconButton(
-      onTap: () => _showFilterSheet(context),
-      icon: Icons.sort_outlined,
-      iconSize: AppConstants.iconSize,
+    return Skeleton.unite(
+      child: CustomIconButton(
+        onTap: () => _showFilterSheet(context),
+        icon: Icons.sort_outlined,
+        iconSize: AppConstants.iconSize,
+        radius: 0,
+      ),
     );
   }
 

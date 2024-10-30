@@ -33,10 +33,9 @@ class RepoSearchResultListingSkeleton extends StatelessWidget {
       child: RepoSearchResultListingSection(
         state: RepoSearchState.initial().copyWith(
           results: _results,
-          page: state.page + 1,
+          page: state.page,
           totalResults: state.totalResults,
         ),
-        search: TextEditingController(),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/infrastructure/resource/service_locator.dart';
 import '../../features/repo/data/model/repo/details/repo_details_model.dart';
+import '../../features/repo/data/repository/cache_repo_repository.dart';
 import '../../features/repo/data/repository/repo_repository.dart';
 import '../../features/repo/presentation/detail/cubit/repo_detail_cubit.dart';
 import '../../features/repo/presentation/detail/page/repo_detail_screen.dart';
@@ -23,7 +24,9 @@ class AppRouter {
       case AppRoutes.search:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => RepoSearchBloc(sl<RepoRepository>()),
+            create: (context) =>
+                RepoSearchBloc(sl<RepoRepository>(), sl<CacheRepoRepository>())
+                  ..add(RepoSearchCacheFetchRequested()),
             child: const RepoSearchScreen(),
           ),
         );

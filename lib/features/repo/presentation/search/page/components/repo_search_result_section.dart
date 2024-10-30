@@ -9,17 +9,15 @@ import 'repo_search_result_listing_section.dart';
 import 'repo_search_result_listing_skeleton.dart';
 
 class RepoSearchResultSection extends StatelessWidget {
-  final TextEditingController search;
   const RepoSearchResultSection({
     super.key,
-    required this.search,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RepoSearchBloc, RepoSearchState>(
       builder: (context, state) {
-        if (state.status == Status.initial || search.text.isEmpty) {
+        if (state.status == Status.initial) {
           return const RepoSearchInitialComponent();
         }
         if (state.status == Status.loading) {
@@ -35,7 +33,6 @@ class RepoSearchResultSection extends StatelessWidget {
         }
         return RepoSearchResultListingSection(
           state: state,
-          search: search,
         );
       },
     );
@@ -48,6 +45,6 @@ class RepoSearchResultSection extends StatelessWidget {
   void _fetchRepos(BuildContext context) {
     context
         .read<RepoSearchBloc>()
-        .add(RepoSearchRequested(keyword: search.text));
+        .add(RepoSearchRequested());
   }
 }

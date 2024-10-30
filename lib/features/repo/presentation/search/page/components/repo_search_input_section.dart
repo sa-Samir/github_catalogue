@@ -7,8 +7,7 @@ import '../../../../../../core/utils/widgets/inputs/custom_input.dart';
 import '../../bloc/repo_search_bloc.dart';
 
 class RepoSearchInputSection extends StatefulWidget {
-  final TextEditingController search;
-  const RepoSearchInputSection({super.key, required this.search});
+  const RepoSearchInputSection({super.key});
 
   @override
   State<RepoSearchInputSection> createState() => _RepoSearchInputSectionState();
@@ -17,7 +16,19 @@ class RepoSearchInputSection extends StatefulWidget {
 class _RepoSearchInputSectionState extends State<RepoSearchInputSection> {
   final _debouncer = Debouncer();
 
-  TextEditingController get _search => widget.search;
+  final _search = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _populate();
+  }
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +47,22 @@ class _RepoSearchInputSectionState extends State<RepoSearchInputSection> {
   void _onKeywordChanged(String value) {
     _debouncer.run(
       () {
-        context.read<RepoSearchBloc>().add(
-              RepoSearchRequested(keyword: _search.text, isReload: true),
-            );
+        final bloc = context.read<RepoSearchBloc>();
+        bloc.add(RepoSearchKeywordChanged(keyword: value));
+        bloc.add(
+          RepoSearchRequested(isReload: true),
+        );
+      },
+    );
+  }
+
+  void _populate() {
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (mounted) {
+          _search.text = context.read<RepoSearchBloc>().state.keyword;
+        }
       },
     );
   }

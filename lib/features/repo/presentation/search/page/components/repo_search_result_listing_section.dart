@@ -17,11 +17,9 @@ import 'widget/repo_card.dart';
 
 class RepoSearchResultListingSection extends StatelessWidget {
   final RepoSearchState state;
-  final TextEditingController search;
   const RepoSearchResultListingSection({
     super.key,
     required this.state,
-    required this.search,
   });
 
   @override
@@ -32,7 +30,6 @@ class RepoSearchResultListingSection extends StatelessWidget {
         _TitleSection(
           totalResults: state.totalResults,
           perPage: state.perPage,
-          search: search,
           sortBy: state.sortBy,
           orderBy: state.orderBy,
         ),
@@ -59,13 +56,13 @@ class RepoSearchResultListingSection extends StatelessWidget {
   void _fetchNextPage(BuildContext context) {
     context
         .read<RepoSearchBloc>()
-        .add(RepoSearchRequested(keyword: search.text));
+        .add(RepoSearchRequested());
   }
 
   void _fetchPreviousPage(BuildContext context) {
     context
         .read<RepoSearchBloc>()
-        .add(RepoSearchRequested(showPrevious: true, keyword: search.text));
+        .add(RepoSearchRequested(showPrevious: true, ));
   }
 }
 
@@ -74,11 +71,9 @@ class _TitleSection extends StatelessWidget {
   final int perPage;
   final String sortBy;
   final String orderBy;
-  final TextEditingController search;
   const _TitleSection({
     required this.totalResults,
     required this.perPage,
-    required this.search,
     required this.sortBy,
     required this.orderBy,
   });
@@ -96,13 +91,11 @@ class _TitleSection extends StatelessWidget {
         AppConstants.smallWidth,
         _PerPageComponent(
           perPage: perPage,
-          search: search,
         ),
         AppConstants.smallWidth,
         _FilterButton(
           sortBy: sortBy,
           orderBy: orderBy,
-          search: search,
         ),
       ],
     );
@@ -111,10 +104,8 @@ class _TitleSection extends StatelessWidget {
 
 class _PerPageComponent extends StatelessWidget {
   final int perPage;
-  final TextEditingController search;
   const _PerPageComponent({
     required this.perPage,
-    required this.search,
   });
 
   @override
@@ -142,7 +133,6 @@ class _PerPageComponent extends StatelessWidget {
     bloc.add(
       RepoSearchRequested(
         isReload: true,
-        keyword: search.text,
       ),
     );
   }
@@ -151,12 +141,10 @@ class _PerPageComponent extends StatelessWidget {
 class _FilterButton extends StatelessWidget {
   final String sortBy;
   final String orderBy;
-  final TextEditingController search;
 
   const _FilterButton({
     required this.sortBy,
     required this.orderBy,
-    required this.search,
   });
 
   @override
@@ -192,7 +180,6 @@ class _FilterButton extends StatelessWidget {
         bloc.add(
           RepoSearchRequested(
             isReload: true,
-            keyword: search.text,
           ),
         );
       }

@@ -1,6 +1,8 @@
 part of 'repo_search_bloc.dart';
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class RepoSearchState {
+  final String keyword;
   final Status status;
   final String errorMessage;
   final int page;
@@ -11,6 +13,7 @@ class RepoSearchState {
   final List<RepoDetailsModel?> results;
 
   RepoSearchState({
+    required this.keyword,
     required this.status,
     required this.errorMessage,
     required this.page,
@@ -22,7 +25,8 @@ class RepoSearchState {
   });
 
   RepoSearchState.initial()
-      : status = Status.initial,
+      : keyword = '',
+        status = Status.initial,
         errorMessage = '',
         page = 0,
         sortBy = SortBy.bestMatch.value,
@@ -32,6 +36,7 @@ class RepoSearchState {
         results = [];
 
   RepoSearchState copyWith({
+    String? keyword,
     Status? status,
     String? errorMessage,
     int? page,
@@ -42,6 +47,7 @@ class RepoSearchState {
     List<RepoDetailsModel?>? results,
   }) =>
       RepoSearchState(
+        keyword: keyword ?? this.keyword,
         status: status ?? this.status,
         errorMessage: errorMessage ?? this.errorMessage,
         page: page ?? this.page,
@@ -51,4 +57,8 @@ class RepoSearchState {
         orderBy: orderBy ?? this.orderBy,
         results: results ?? this.results,
       );
+
+  factory RepoSearchState.fromJson(JsonMap json) =>
+      _$RepoSearchStateFromJson(json);
+  JsonMap toJson() => _$RepoSearchStateToJson(this);
 }

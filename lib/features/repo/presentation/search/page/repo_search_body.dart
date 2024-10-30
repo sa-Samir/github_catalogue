@@ -16,12 +16,10 @@ class RepoSearchBody extends StatefulWidget {
 }
 
 class _RepoSearchBodyState extends State<RepoSearchBody> {
-  final _search = TextEditingController();
   final _scrollController = ScrollController();
 
   @override
   void dispose() {
-    _search.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -34,15 +32,11 @@ class _RepoSearchBodyState extends State<RepoSearchBody> {
         controller: _scrollController,
         physics: AppConstants.scrollPhysics,
         padding: const EdgeInsets.all(AppConstants.screenPadding),
-        child: Column(
+        child: const Column(
           children: [
-            RepoSearchInputSection(
-              search: _search,
-            ),
+            RepoSearchInputSection(),
             AppConstants.largeHeight,
-            RepoSearchResultSection(
-              search: _search,
-            ),
+            RepoSearchResultSection(),
           ],
         ),
       ),
@@ -52,6 +46,13 @@ class _RepoSearchBodyState extends State<RepoSearchBody> {
   void _handleStates(BuildContext context, RepoSearchState state) {
     if (state.status == Status.failure && state.errorMessage.isNotEmpty) {
       failureToast(state.errorMessage);
+    }
+    if (state.status == Status.success && state.page > 0) {
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+      );
     }
   }
 }
